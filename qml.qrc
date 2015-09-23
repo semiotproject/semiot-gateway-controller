@@ -4,5 +4,6 @@
         <file>AccountsPage.qml</file>
         <file>GatewaysPage.qml</file>
         <file>ResourcesPage.qml</file>
+        <file>gateway.png</file>
     </qresource>
 </RCC>

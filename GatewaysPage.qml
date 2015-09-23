@@ -26,7 +26,13 @@ Item {
                 Item {
                     width: height
                     height: parent.height-30
+                    Image {
+                        anchors.fill: parent
+                        source: "gateway.png"
+                    }
+
                     Rectangle {
+                        visible: false
                         color: "lightgreen"
                         radius: height
                         anchors.fill: parent
