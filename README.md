@@ -28,3 +28,11 @@ Remote configuration.
 
 ## Status
 You can configure your router domain name or use duckdns.
+
+## Screenshots
+### Users List
+![UsersList](https://github.com/semiotproject/semiot-gateway-controller/raw/master/shots/accounts_page_shot.png)
+### Gateways List
+![GatewaysList](https://github.com/semiotproject/semiot-gateway-controller/raw/master/shots/gateways_page_shot.png)
+### Resources List
+![ResourcesList](https://github.com/semiotproject/semiot-gateway-controller/blob/master/shots/resources_page_shot.png)
