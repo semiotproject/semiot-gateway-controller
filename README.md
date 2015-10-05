@@ -16,7 +16,7 @@ You can login to local gateway or to remote one.
 
 ## Users control
 You can add new user and prove some access to some resources.
-You can receive requests for permissions from users.
+*future-work: You can receive requests for permissions from users.
 
 ## Devices registry
 You have the registry where you can assign any resource with with some semantic description.
@@ -41,7 +41,7 @@ You can configure your router domain name or use [duckdns](http://duckdns.org/).
 ### Resources List
 ![ResourcesList](https://github.com/semiotproject/semiot-gateway-controller/blob/master/shots/resources_page_shot.png)
 
-# Use-Cases
+# Usage example
 
 Sergei is a IoT-enthusiast. He wants to add intellectual features to his apartment.
 He've heard about SemIoT project and wants to try it.
@@ -59,3 +59,11 @@ Now he can observe his first IoT-sensor via the [semiot-gateway](https://github.
 He also could discover additional sensors/actuators via any protocol supported by his upgradable Raspberry Pi 2 (e.g., bluetooth, wifi, ethernet, RS-485, CAN, etc).
 
 After that it is possible to interconnect different protocol-based streams via the [node-red](https://github.com/node-red/node-red), [node-sgs](https://github.com/chheplo/node-sgs) and send the data to the [SemIoT-platform](https://github.com/semiotproject/semiot-platform) for the analysis.
+
+
+# User stories
+
+As user, I want to discover new devices.
+  ..to have an option to connect new device to the gateway with specified connection options.
+  ..to have a list of active connected devices
+  .. to share access with other clients
