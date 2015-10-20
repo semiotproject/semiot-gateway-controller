@@ -63,7 +63,14 @@ After that it is possible to interconnect different protocol-based streams via t
 
 # User stories
 
-As user, I want to discover new devices.
+As user, I want to discover new devices. (requres more batteries)
+
   ..to have an option to connect new device to the gateway with specified connection options.
+  
   ..to have a list of active connected devices
+  
   .. to share access with other clients
+
+# Current Gateway Controller Mockup
+
+`./gtw-ctrl`
