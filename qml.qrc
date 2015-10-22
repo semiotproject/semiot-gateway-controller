@@ -1,9 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>AccountsPage.qml</file>
-        <file>GatewaysPage.qml</file>
-        <file>ResourcesPage.qml</file>
-        <file>gateway.png</file>
+        <file>MainForm.ui.qml</file>
+        <file>Configurator.qml</file>
+        <file>ConstantString.qml</file>
     </qresource>
 </RCC>

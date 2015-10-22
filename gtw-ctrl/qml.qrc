@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>MainForm.ui.qml</file>
-        <file>Configurator.qml</file>
-        <file>ConstantString.qml</file>
-    </qresource>
-</RCC>

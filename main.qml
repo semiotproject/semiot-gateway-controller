@@ -1,77 +1,119 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.2
+import QtQuick.Window 2.0
 
 ApplicationWindow {
     visible: true
-    width: 540
-    height: 960
-    title: qsTr("Gateway Controller")
-    TabView {
+    width: 640
+    height: 480
+    title: qsTr("Gateway Configurator")
+
+    function generateConfig() {
+        var configArray = []
+        for (var i=0;i<mainForm.tabView.count;i++) {
+            var title = mainForm.tabView.getTab(i).title
+            var cfg = "TODO"//mainForm.tabView.getTab(i).item.loaderItem.config // FIXME
+            configArray.push([title+":"+cfg])
+        }
+        return configArray
+    }
+
+    function indexOfTabByTitle(title) {
+        for (var i=0;i<mainForm.tabView.count;i++) {
+            if (mainForm.tabView.getTab(i).title===title) {
+                return i;
+            }
+        }
+        return -1
+    }
+
+    function tabsClear() {
+        for (var i=0;i<mainForm.tabView.count;i++) {
+            mainForm.tabView.removeTab(i)
+        }
+    }
+
+    function parseVarsFromText() {
+        var text = mainForm.textAreaDescriptionText
+        var re = /\${[^}]+}/g;
+        var m;
+        tabsClear()
+        do {
+            m = re.exec(text);
+            if (m) {
+                var parsedVar = m.toString()
+                if (indexOfTabByTitle(parsedVar)<0) {
+                    mainForm.tabView.addTab(parsedVar,viewComp);
+                }
+            }
+        } while (m);
+    }
+
+    function getSemDescriptionFromUrl() {
+        var url = mainForm.textFieldSemDescription.text
+        var doc = new XMLHttpRequest();
+        doc.onreadystatechange = function() {
+            if (doc.readyState == XMLHttpRequest.DONE) {
+                var responseText = doc.responseText
+                mainForm.textAreaSemDescription.text = responseText
+                //parseVarsFromText()
+            }
+        }
+        doc.open("get", url);
+        doc.setRequestHeader("Content-Encoding", "UTF-8");
+        doc.send();
+    }
+
+    Component {
+        id:viewComp
+        Configurator {
+            id: configurator
+        }
+    }
+
+    MainForm {
+        id: mainForm
         anchors.fill: parent
-        Tab {
-            title: "Accounts"
-            AccountsPage {
-                id: accounts_page
-                model: accounts_model
-            }
+        buttonAmperage.onClicked: {
+            textFieldSemDescription.text = buttonAmperage.text
         }
-        Tab {
-            title: "Resources"
-            ResourcesPage {
-                id: resources_page
-                model: resources_model
-            }
+        buttonVoltage.onClicked: {
+            textFieldSemDescription.text = buttonVoltage.text
         }
-        Tab {
-            title: "Gateways"
-            GatewaysPage {
-                id: gateways_page
-                model: gateways_model
-            }
+        buttonPower.onClicked: {
+            textFieldSemDescription.text = buttonPower.text
+        }
+        buttonSemDescription.onClicked: {
+            textFieldSemDescription.text = buttonSemDescription.text
+        }
+        buttonHeatMeterTemperature.onClicked: {
+            textFieldSemDescription.text = buttonHeatMeterTemperature.text
+        }
+        buttonTemperatureObservation.onClicked: {
+            textFieldSemDescription.text = buttonTemperatureObservation.text
+        }
 
+        buttonReceive.onClicked:  {
+            getSemDescriptionFromUrl()
         }
-    }
-    // dummy models:
-    ListModel {
-        id: accounts_model
-        ListElement {
-            name: "Alexey Andreyev"
-            info: "awesomenickname@domain.org"
+        onTextAreaDescriptionTextChanged: {
+            parseVarsFromText()
         }
-        ListElement {
-            name: "Aleksei Andreev"
-            info: "boringnickname@corpdomain.com"
-        }
-        ListElement {
-            name: "Alexey"
-            info: "strangenickname@domain.ru"
-        }
-    }
-    ListModel {
-        id: gateways_model
-        ListElement {
-            name: "Home Gateway"
-            info: "127.0.0.1; asewomegateway.duckdns.org"
-        }
-        ListElement {
-            name: "Work Gateway"
-            info: "asewomegateway.corpdomain.com"
-        }
-        ListElement {
-            name: "Public Gateway"
-            info: "awesomegateway.domain.org"
-        }
-    }
-    ListModel {
-        id: resources_model
-        ListElement {
-            name: "DHT22/Temperature"
-            info: "coap://127.0.0.2:5683/\ncoap://asewomegateway.duckdns.org:5683/dht22/temperature"
-        }
-        ListElement {
-            name: "DHT22/Humidity"
-            info: "coap://127.0.0.2:5683/\ncoap://asewomegateway.duckdns.org:5683/dht22/humidity"
+        buttonGenerate.onClicked: {
+            generatedConfig = generateConfig().toString()
+            messageDialog.show(generatedConfig)
         }
     }
 
+    MessageDialog {
+        id: messageDialog
+        title: qsTr("Resulting Dialog")
+
+        function show(caption) {
+            messageDialog.text = caption;
+            messageDialog.open();
+        }
+    }
 }
+
